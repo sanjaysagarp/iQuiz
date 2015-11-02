@@ -16,6 +16,7 @@
 		5440F1C51BE80FFC00FA768E /* iQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5440F1C41BE80FFC00FA768E /* iQuizUITests.swift */; };
 		5440F1D31BE8116B00FA768E /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5440F1D21BE8116B00FA768E /* TableViewController.swift */; };
 		5440F1D51BE8118200FA768E /* Question_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5440F1D41BE8118200FA768E /* Question_Icon.png */; };
+		5440F1D71BE827A600FA768E /* Question_Flat.png in Resources */ = {isa = PBXBuildFile; fileRef = 5440F1D61BE827A600FA768E /* Question_Flat.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		5440F1C61BE80FFC00FA768E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5440F1D21BE8116B00FA768E /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		5440F1D41BE8118200FA768E /* Question_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Question_Icon.png; path = ../../../../Desktop/Question_Icon.png; sourceTree = "<group>"; };
+		5440F1D61BE827A600FA768E /* Question_Flat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Question_Flat.png; path = ../../../../Desktop/Question_Flat.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				5440F1A41BE80FFC00FA768E /* AppDelegate.swift */,
+				5440F1D61BE827A600FA768E /* Question_Flat.png */,
 				5440F1D41BE8118200FA768E /* Question_Icon.png */,
 				5440F1A61BE80FFC00FA768E /* ViewController.swift */,
 				5440F1A81BE80FFC00FA768E /* Main.storyboard */,
@@ -238,6 +241,7 @@
 				5440F1D51BE8118200FA768E /* Question_Icon.png in Resources */,
 				5440F1AF1BE80FFC00FA768E /* LaunchScreen.storyboard in Resources */,
 				5440F1AC1BE80FFC00FA768E /* Assets.xcassets in Resources */,
+				5440F1D71BE827A600FA768E /* Question_Flat.png in Resources */,
 				5440F1AA1BE80FFC00FA768E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -46,8 +46,7 @@ class TableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SubjectCell", forIndexPath: indexPath)
-        let image : UIImage = UIImage(named: "Question_Icon.png")!
-        print("The loaded image: \(image)")
+        let image : UIImage = UIImage(named: "Question_Flat.png")!
         cell.imageView!.image = image
         cell.textLabel?.text = subjects[indexPath.row]
         

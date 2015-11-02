@@ -12,25 +12,14 @@ class ViewController: UIViewController {
 
     @IBAction func displaySettings(sender: AnyObject) {
         //Create the AlertController
-        let actionSheetController: UIAlertController = UIAlertController(title: "Action Sheet", message: "Swiftly Now! Choose an option!", preferredStyle: .ActionSheet)
+        let actionSheetController: UIAlertController = UIAlertController(title: "Settings go here!", message: nil, preferredStyle: .Alert)
         
         //Create and add the Cancel action
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
-            //Just dismiss the action sheet
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
+        //Just dismiss the action sheet
         }
         actionSheetController.addAction(cancelAction)
-        //Create and add first option action
-        let takePictureAction: UIAlertAction = UIAlertAction(title: "Take Picture", style: .Default) { action -> Void in
-            //Code for launching the camera goes here
-        }
-        actionSheetController.addAction(takePictureAction)
-        //Create and add a second option action
-        let choosePictureAction: UIAlertAction = UIAlertAction(title: "Choose From Camera Roll", style: .Default) { action -> Void in
-            //Code for picking from camera roll goes here
-        }
-        actionSheetController.addAction(choosePictureAction)
         
-        //Present the AlertController
         self.presentViewController(actionSheetController, animated: true, completion: nil)
     }
     override func viewDidLoad() {
