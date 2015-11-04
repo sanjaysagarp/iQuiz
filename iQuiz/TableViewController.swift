@@ -11,6 +11,19 @@ import UIKit
 class TableViewController: UITableViewController {
     
     let subjects = ["Mathematics", "Marvel Super Heroes", "Science"]
+    
+    @IBAction func displaySettings(sender: AnyObject) {
+        //Create the AlertController
+        let actionSheetController: UIAlertController = UIAlertController(title: "Settings go here!", message: nil, preferredStyle: .Alert)
+        
+        //Create and add the Cancel action
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
+        }
+        actionSheetController.addAction(cancelAction)
+        
+        self.presentViewController(actionSheetController, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
