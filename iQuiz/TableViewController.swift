@@ -49,7 +49,7 @@ class TableViewController: UITableViewController {
         let image : UIImage = UIImage(named: "Question_Flat.png")!
         cell.imageView!.image = image
         cell.textLabel?.text = subjects[indexPath.row]
-        //cell.detailTextLabel!.text = "Description"
+        cell.detailTextLabel!.text = "A sentence goes here"
         
         return cell
     }
