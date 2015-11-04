@@ -16,7 +16,6 @@ class ViewController: UIViewController {
         
         //Create and add the Cancel action
         let cancelAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-        //Just dismiss the action sheet
         }
         actionSheetController.addAction(cancelAction)
         

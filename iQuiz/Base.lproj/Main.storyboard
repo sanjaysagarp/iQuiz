@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="DZX-LP-vwh">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="2ut-db-YAm">
+            <objects>
+                <navigationController id="DZX-LP-vwh" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6Em-od-KtC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="qHp-rK-YC4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jyP-Wj-nVA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-671" y="438"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -18,36 +35,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVO-zk-Rv4">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="keY-K6-53l" kind="embed" id="3TI-Sb-MvC"/>
                                 </connections>
                             </containerView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PPL-tR-Zcx">
-                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
-                                <animations/>
-                                <items>
-                                    <barButtonItem title="Settings" id="wIw-2c-bxr">
-                                        <connections>
-                                            <action selector="displaySettings:" destination="BYZ-38-t0r" id="WFj-bw-U7T"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="PPL-tR-Zcx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="0JG-Z1-Qsy"/>
-                            <constraint firstItem="cVO-zk-Rv4" firstAttribute="leading" secondItem="PPL-tR-Zcx" secondAttribute="leading" id="T0T-yO-tvY"/>
-                            <constraint firstItem="cVO-zk-Rv4" firstAttribute="trailing" secondItem="PPL-tR-Zcx" secondAttribute="trailing" id="YqP-59-dRk"/>
-                            <constraint firstItem="cVO-zk-Rv4" firstAttribute="top" secondItem="PPL-tR-Zcx" secondAttribute="bottom" id="boL-Kf-czM"/>
-                            <constraint firstItem="cVO-zk-Rv4" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="ibx-wd-f7l"/>
-                            <constraint firstAttribute="trailing" secondItem="PPL-tR-Zcx" secondAttribute="trailing" id="orG-FA-cpr"/>
-                            <constraint firstItem="PPL-tR-Zcx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="zZC-NW-so2"/>
+                            <constraint firstAttribute="trailing" secondItem="cVO-zk-Rv4" secondAttribute="trailing" id="WDC-Ug-p8I"/>
+                            <constraint firstItem="cVO-zk-Rv4" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="fQi-4D-0Pl"/>
+                            <constraint firstItem="cVO-zk-Rv4" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="ggj-fR-uvr"/>
+                            <constraint firstItem="cVO-zk-Rv4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="l1Z-Rs-Crs"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="QDZ-kn-Pgz">
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="xPY-hi-aVQ">
+                            <connections>
+                                <action selector="displaySettings:" destination="BYZ-38-t0r" id="tQy-qQ-tze"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -58,7 +68,7 @@
             <objects>
                 <tableViewController id="keY-K6-53l" customClass="TableViewController" customModule="iQuiz" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="tyC-nO-8bD">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
