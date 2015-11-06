@@ -9,11 +9,12 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var question: UILabel!
+    var question: String = ""
+    @IBOutlet weak var questionText: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        questionText.text! = question
     }
 
     override func didReceiveMemoryWarning() {

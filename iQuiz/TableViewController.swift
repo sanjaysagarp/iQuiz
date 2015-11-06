@@ -102,7 +102,12 @@ class TableViewController: UITableViewController {
         return true
     }
     */
-
+    
+    /*
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+    }
+    */
     
     // MARK: - Navigation
 
@@ -112,9 +117,10 @@ class TableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == "ShowQuestionSegue"
         {
-            if let destinationVC = segue.destinationViewController as? UIViewController{
-                destinationVC.title = "blah"
-            }
+            let destinationVC = segue.destinationViewController as! ViewController
+            let index = tableView.indexPathForSelectedRow!
+            destinationVC.title = subjects[index.row]
+            destinationVC.question = "Question goes here"
         }
     }
     
