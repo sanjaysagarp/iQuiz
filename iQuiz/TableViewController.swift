@@ -120,7 +120,8 @@ class TableViewController: UITableViewController {
             let destinationVC = segue.destinationViewController as! ViewController
             let index = tableView.indexPathForSelectedRow!
             destinationVC.title = subjects[index.row]
-            destinationVC.question = "Question goes here"
+            destinationVC.question = "" //Make an array for questions
+            destinationVC.questionIndex = index.row
         }
     }
     
