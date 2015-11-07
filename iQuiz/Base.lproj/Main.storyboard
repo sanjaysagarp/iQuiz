@@ -104,26 +104,27 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RdP-3Z-oMK">
-                                <rect key="frame" x="20" y="272" width="560" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBD-RG-hIQ">
+                                <rect key="frame" x="20" y="328" width="560" height="48"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.59999999999999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" label=""/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="t8l-1Z-zhq"/>
+                                    <constraint firstAttribute="height" constant="48" id="Gda-xk-ZR5"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Answer1">
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Answer2">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="answerButton:" destination="D7V-4Q-PWI" eventType="touchUpInside" id="aYs-zV-oNE"/>
+                                    <action selector="answerButton:" destination="D7V-4Q-PWI" eventType="touchUpInside" id="Bbw-TQ-N4z"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JBp-ra-Mxh">
                                 <rect key="frame" x="20" y="384" width="560" height="48"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.59999999999999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" label=""/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="jKv-gp-xKf"/>
                                 </constraints>
@@ -139,6 +140,7 @@
                                 <rect key="frame" x="20" y="440" width="560" height="48"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.59999999999999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" label="AnswerButton"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="3TK-IC-vK7"/>
                                 </constraints>
@@ -154,28 +156,30 @@
                                 <rect key="frame" x="20" y="496" width="560" height="48"/>
                                 <animations/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" label="submit"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Submit">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="answerButton:" destination="D7V-4Q-PWI" eventType="touchUpInside" id="5d8-MU-mni"/>
                                     <action selector="submitButton:" destination="D7V-4Q-PWI" eventType="touchUpInside" id="VJV-DF-I8k"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBD-RG-hIQ">
-                                <rect key="frame" x="20" y="328" width="560" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RdP-3Z-oMK">
+                                <rect key="frame" x="20" y="272" width="560" height="48"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.59999999999999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" label=""/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="Gda-xk-ZR5"/>
+                                    <constraint firstAttribute="height" constant="48" id="t8l-1Z-zhq"/>
                                 </constraints>
-                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Answer2">
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Answer1">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="answerButton:" destination="D7V-4Q-PWI" eventType="touchUpInside" id="Bbw-TQ-N4z"/>
+                                    <action selector="answerButton:" destination="D7V-4Q-PWI" eventType="touchUpInside" id="aYs-zV-oNE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -203,12 +207,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="answer1" destination="RdP-3Z-oMK" id="yzr-8Y-Qwx"/>
-                        <outlet property="answer2" destination="oBD-RG-hIQ" id="YUT-oe-h1R"/>
-                        <outlet property="answer3" destination="JBp-ra-Mxh" id="6Qo-Ca-bGR"/>
-                        <outlet property="answer4" destination="xhT-Zo-jEu" id="2Gg-9Y-gJs"/>
+                        <outlet property="answer1" destination="RdP-3Z-oMK" id="94b-8J-IL6"/>
+                        <outlet property="answer2" destination="oBD-RG-hIQ" id="7vM-7I-13c"/>
+                        <outlet property="answer3" destination="JBp-ra-Mxh" id="zR3-Vi-pw8"/>
+                        <outlet property="answer4" destination="xhT-Zo-jEu" id="1rX-t1-S1N"/>
                         <outlet property="questionText" destination="Ih5-qk-g3j" id="kee-zL-v2F"/>
-                        <outlet property="submit" destination="ZQ3-YD-a59" id="A72-Jl-w9f"/>
+                        <outlet property="submit" destination="ZQ3-YD-a59" id="Mm6-FU-i15"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ODy-lH-pzV" userLabel="First Responder" sceneMemberID="firstResponder"/>
