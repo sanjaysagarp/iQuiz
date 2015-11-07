@@ -32,6 +32,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var answer4: UIButton!
     @IBOutlet weak var submit: UIButton!
     @IBOutlet var nextButton: UIBarButtonItem!
+    @IBOutlet weak var doneButton: UIBarButtonItem!
     
     lazy var buttons: [UIButton] = [self.answer1, self.answer2, self.answer3, self.answer4]
     var userAnswer = ""
@@ -55,7 +56,6 @@ class ViewController: UIViewController {
                 if button.selected {
                     button.layer.backgroundColor = UIColor.greenColor().CGColor
                     self.correct = self.correct + 1
-                    print(correct)
                 } else {
                     button.layer.borderWidth = 4
                     button.layer.borderColor = UIColor.redColor().CGColor
@@ -64,8 +64,11 @@ class ViewController: UIViewController {
             button.enabled = false
         }
         sender.enabled = false
-        if numberSubmissions >= 5 && nextButton.title == "Done" {
+        if numberSubmissions < 5 {
             nextButton.enabled = true
+        }
+        if numberSubmissions >= 5 {
+            doneButton.enabled = true
         }
     }
     
@@ -73,8 +76,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         submit.enabled = false
-        
-        //print (self.questionIndex)
+        nextButton.enabled = false
+        self.navigationItem.setHidesBackButton(true, animated: false)
         if self.questionIndex < 5 {
             var answerTexts = mathPossible[questionIndex]
             questionText.text! = mathQuestions[questionIndex]
@@ -82,21 +85,7 @@ class ViewController: UIViewController {
             answer2.setTitle(answerTexts![1], forState: .Normal)
             answer3.setTitle(answerTexts![2], forState: .Normal)
             answer4.setTitle(answerTexts![3], forState: .Normal)
-        } else { // says congrats
-            
-            for button in buttons {
-                button.hidden = true
-            }
-            submit.hidden = true
-            self.title = ""
-            print(correct)
-            self.questionText.text! = "You got \(self.correct) out of 5"
         }
-        
-        // Will probably use this to fix bug of returning to refreshed question
-        /*if numberSubmissions >= 5 && nextButton.title == "Done" {
-            nextButton.enabled = true
-        }*/
         
     }
 
@@ -106,20 +95,25 @@ class ViewController: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        let destinationVC = segue.destinationViewController as! ViewController
-        destinationVC.questionIndex = self.questionIndex + 1
-        if destinationVC.questionIndex < 5 {//Limits number of questions to 5
-            destinationVC.title = "\(destinationVC.questionIndex + 1) of 5"
-            //destinationVC.question = mathQuestions[destinationVC.questionRowIndex + 1]
-            //print (destinationVC.questionIndex)
+        if segue.identifier != "FinishedSegue" {
+            let destinationVC = segue.destinationViewController as! ViewController
+            destinationVC.questionIndex = self.questionIndex + 1
+            if destinationVC.questionIndex < 5 {//Limits number of questions to 5
+                destinationVC.title = "\(destinationVC.questionIndex + 1) of 5"
+
+            }
+            
+            if questionIndex >= 3 {
+                destinationVC.nextButton.enabled = false;
+            }
+            destinationVC.numberSubmissions = self.numberSubmissions
+            destinationVC.correct = self.correct
+        } else {
+            let destinationVC = segue.destinationViewController as! FinishedViewController
+            destinationVC.title = "YOU DID IT!"
+            destinationVC.correct = self.correct
         }
         
-        if questionIndex >= 3 {
-            destinationVC.nextButton.title = "Menu"
-            destinationVC.nextButton.enabled = false;
-        }
-        destinationVC.numberSubmissions = self.numberSubmissions
-        destinationVC.correct = self.correct
         
     }
 

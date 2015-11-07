@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -207,17 +208,26 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="QuestionView" id="dRw-Fp-t0b">
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="rG9-f1-3BJ">
-                            <connections>
-                                <segue destination="D7V-4Q-PWI" kind="show" id="Y5g-fm-pPk"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem enabled="NO" systemItem="done" id="8se-8L-FZT">
+                                <connections>
+                                    <segue destination="uJz-Kp-PSJ" kind="show" identifier="FinishedSegue" id="G9V-Ha-w05"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Next" id="rG9-f1-3BJ">
+                                <connections>
+                                    <action selector="segueFinish:" destination="D7V-4Q-PWI" id="pCd-JS-qEP"/>
+                                    <segue destination="D7V-4Q-PWI" kind="show" id="Y5g-fm-pPk"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="answer1" destination="RdP-3Z-oMK" id="94b-8J-IL6"/>
                         <outlet property="answer2" destination="oBD-RG-hIQ" id="7vM-7I-13c"/>
                         <outlet property="answer3" destination="JBp-ra-Mxh" id="zR3-Vi-pw8"/>
                         <outlet property="answer4" destination="xhT-Zo-jEu" id="1rX-t1-S1N"/>
+                        <outlet property="doneButton" destination="8se-8L-FZT" id="E8C-KG-Ked"/>
                         <outlet property="nextButton" destination="rG9-f1-3BJ" id="hDK-VF-JPD"/>
                         <outlet property="questionText" destination="Ih5-qk-g3j" id="kee-zL-v2F"/>
                         <outlet property="submit" destination="ZQ3-YD-a59" id="Mm6-FU-i15"/>
@@ -230,7 +240,7 @@
         <!--FinishedController-->
         <scene sceneID="Q2V-nV-BpR">
             <objects>
-                <viewController title="FinishedController" id="uJz-Kp-PSJ" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FinishedController" title="FinishedController" id="uJz-Kp-PSJ" customClass="FinishedViewController" customModule="iQuiz" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tHD-WY-P9w"/>
                         <viewControllerLayoutGuide type="bottom" id="xFi-gA-zQU"/>
@@ -238,9 +248,42 @@
                     <view key="view" contentMode="scaleToFill" id="Tw1-k3-Ajc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OqJ-rX-LHe">
+                                <rect key="frame" x="279" y="316" width="42" height="20.5"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some Text" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="3" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUq-09-kOu">
+                                <rect key="frame" x="225.5" y="226" width="140" height="36"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OqJ-rX-LHe" firstAttribute="centerY" secondItem="Tw1-k3-Ajc" secondAttribute="centerY" constant="26.5" id="LGa-XF-5Gd"/>
+                            <constraint firstItem="eUq-09-kOu" firstAttribute="centerX" secondItem="Tw1-k3-Ajc" secondAttribute="centerX" constant="-4.5" id="fHL-H2-jby"/>
+                            <constraint firstItem="eUq-09-kOu" firstAttribute="centerY" secondItem="Tw1-k3-Ajc" secondAttribute="centerY" constant="-56" id="tEX-qs-fxx"/>
+                            <constraint firstItem="OqJ-rX-LHe" firstAttribute="centerX" secondItem="Tw1-k3-Ajc" secondAttribute="centerX" id="uZ8-bc-VuI"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="r46-Aq-Ejc">
+                        <barButtonItem key="rightBarButtonItem" title="Menu" id="1Cx-Dl-Ovm">
+                            <connections>
+                                <action selector="backToMenu:" destination="uJz-Kp-PSJ" id="XzV-ev-ojJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="score" destination="OqJ-rX-LHe" id="F2S-r6-B1L"/>
+                        <outlet property="winningText" destination="eUq-09-kOu" id="3dM-zG-egh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LQs-c9-wYM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
