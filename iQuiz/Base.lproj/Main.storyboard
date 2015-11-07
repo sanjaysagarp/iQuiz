@@ -85,7 +85,7 @@
             </objects>
             <point key="canvasLocation" x="84" y="438"/>
         </scene>
-        <!--View Controller-->
+        <!--QuestionView-->
         <scene sceneID="heR-Q1-2cM">
             <objects>
                 <viewController id="D7V-4Q-PWI" customClass="ViewController" customModule="iQuiz" customModuleProvider="target" sceneMemberID="viewController">
@@ -206,11 +206,19 @@
                             <constraint firstItem="oBD-RG-hIQ" firstAttribute="trailing" secondItem="JBp-ra-Mxh" secondAttribute="trailing" id="tlp-Iy-PSP"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="QuestionView" id="dRw-Fp-t0b">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="rG9-f1-3BJ">
+                            <connections>
+                                <segue destination="D7V-4Q-PWI" kind="show" id="Y5g-fm-pPk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="answer1" destination="RdP-3Z-oMK" id="94b-8J-IL6"/>
                         <outlet property="answer2" destination="oBD-RG-hIQ" id="7vM-7I-13c"/>
                         <outlet property="answer3" destination="JBp-ra-Mxh" id="zR3-Vi-pw8"/>
                         <outlet property="answer4" destination="xhT-Zo-jEu" id="1rX-t1-S1N"/>
+                        <outlet property="nextButton" destination="rG9-f1-3BJ" id="hDK-VF-JPD"/>
                         <outlet property="questionText" destination="Ih5-qk-g3j" id="kee-zL-v2F"/>
                         <outlet property="submit" destination="ZQ3-YD-a59" id="Mm6-FU-i15"/>
                     </connections>
@@ -220,4 +228,7 @@
             <point key="canvasLocation" x="800" y="438"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="BIy-aA-TaB"/>
+    </inferredMetricsTieBreakers>
 </document>

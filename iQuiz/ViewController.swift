@@ -11,18 +11,25 @@ struct question {
     //Each question has a questionText, possibleAnswers, answer
 }
 class ViewController: UIViewController {
-    var mathQuestions: [String:[String]] = [
-        "4 + 7 = " : ["2","3","11","9"]
+    var mathQuestions: [String] = ["4 + 7 = ","3 * 3 = ", "3 * 4 = ", "3 * 5 = ", "3 * 6 = "]
+    var mathPossible: [Int:[String]] = [
+        0 : ["2","3","11","9"],
+        1 : ["9","0","5","2"],
+        2 : ["12","0","5","2"],
+        3 : ["2","5","12","15"],
+        4 : ["9","18","5","15"]
     ]
-    
-    var question: String = ""
-    var questionIndex: Int = 0;
+    var mathAnswers: [String] = ["11","9","12","15","18"]
+    //var question: String = ""
+    var questionRowIndex: Int = 0 //From categories 0 = Math,  1 = Marvel, 2 = Science
+    var questionIndex: Int = 0
     @IBOutlet weak var questionText: UILabel!
     @IBOutlet weak var answer1: UIButton!
     @IBOutlet weak var answer2: UIButton!
     @IBOutlet weak var answer3: UIButton!
     @IBOutlet weak var answer4: UIButton!
     @IBOutlet weak var submit: UIButton!
+    @IBOutlet var nextButton: UIBarButtonItem!
     
     lazy var buttons: [UIButton] = [self.answer1, self.answer2, self.answer3, self.answer4]
     var userAnswer = ""
@@ -41,7 +48,7 @@ class ViewController: UIViewController {
     @IBAction func submitButton(sender: UIButton) {
         
         for button in self.buttons {
-            if button.currentTitle == "11" { //answer check
+            if button.currentTitle == mathAnswers[questionIndex] { //answer check
                 if button.selected {
                     button.layer.backgroundColor = UIColor.greenColor().CGColor
                 } else {
@@ -57,12 +64,19 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
         submit.enabled = false
-        questionText.text! = "4 + 7 = "
-        answer1.setTitle("2", forState: .Normal)
-        answer2.setTitle("3", forState: .Normal)
-        answer3.setTitle("11", forState: .Normal)
-        answer4.setTitle("9", forState: .Normal)
+        
+        
+        print (self.questionIndex)
+        if self.questionIndex < 5 {
+            var answerTexts = mathPossible[questionIndex]
+            questionText.text! = mathQuestions[questionIndex]
+            answer1.setTitle(answerTexts![0], forState: .Normal)
+            answer2.setTitle(answerTexts![1], forState: .Normal)
+            answer3.setTitle(answerTexts![2], forState: .Normal)
+            answer4.setTitle(answerTexts![3], forState: .Normal)
+        }
 
     }
 
@@ -70,7 +84,21 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        let destinationVC = segue.destinationViewController as! ViewController
+        destinationVC.questionIndex = self.questionIndex + 1
+        if self.questionIndex < 5 {//Limits number of questions to 5
+            destinationVC.title = "\(destinationVC.questionIndex + 1) of 5"
+            //destinationVC.question = mathQuestions[destinationVC.questionRowIndex + 1]
+            //print (destinationVC.questionIndex)
+        }
+        
+        if questionIndex == 3 {
+            destinationVC.nextButton.title = "Done"
+            destinationVC.nextButton.enabled = false;
+        }
+    }
 
 }
 
