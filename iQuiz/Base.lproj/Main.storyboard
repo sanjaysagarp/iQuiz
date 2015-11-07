@@ -227,6 +227,25 @@
             </objects>
             <point key="canvasLocation" x="800" y="438"/>
         </scene>
+        <!--FinishedController-->
+        <scene sceneID="Q2V-nV-BpR">
+            <objects>
+                <viewController title="FinishedController" id="uJz-Kp-PSJ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tHD-WY-P9w"/>
+                        <viewControllerLayoutGuide type="bottom" id="xFi-gA-zQU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Tw1-k3-Ajc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LQs-c9-wYM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1565" y="438"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="BIy-aA-TaB"/>
