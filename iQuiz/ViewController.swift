@@ -11,16 +11,11 @@ struct question {
     //Each question has a questionText, possibleAnswers, answer
 }
 class ViewController: UIViewController {
-    var mathQuestions: [String] = ["4 + 7 = ","3 * 3 = ", "3 * 4 = ", "3 * 5 = ", "3 * 6 = "]
-    var mathPossible: [Int:[String]] = [
-        0 : ["2","3","11","9"],
-        1 : ["9","0","5","2"],
-        2 : ["12","0","5","2"],
-        3 : ["2","5","12","15"],
-        4 : ["9","18","5","15"]
-    ]
-    var mathAnswers: [String] = ["11","9","12","15","18"]
-    var questionRowIndex: Int = 0 //From categories 0 = Math,  1 = Marvel, 2 = Science
+    var questions: [String] = []
+    var possibleAnswers: [Int:[String]] = [0:[]]
+    var answers: [String] = []
+    
+    //var questionRowIndex: Int = 0 //From categories 0 = Math,  1 = Marvel, 2 = Science
     var questionIndex: Int = 0
     var correct: Int = 0
     var numberSubmissions: Int = 0
@@ -51,7 +46,7 @@ class ViewController: UIViewController {
     @IBAction func submitButton(sender: UIButton) {
         numberSubmissions++
         for button in self.buttons {
-            if button.currentTitle == mathAnswers[questionIndex] { //answer check
+            if button.currentTitle == answers[questionIndex] { //answer check
                 if button.selected {
                     button.layer.backgroundColor = UIColor.greenColor().CGColor
                     self.correct = self.correct + 1
@@ -78,8 +73,8 @@ class ViewController: UIViewController {
         nextButton.enabled = false
         self.navigationItem.setHidesBackButton(true, animated: false)
         if self.questionIndex < 5 {
-            var answerTexts = mathPossible[questionIndex]
-            questionText.text! = mathQuestions[questionIndex]
+            var answerTexts = possibleAnswers[questionIndex]
+            questionText.text! = questions[questionIndex]
             answer1.setTitle(answerTexts![0], forState: .Normal)
             answer2.setTitle(answerTexts![1], forState: .Normal)
             answer3.setTitle(answerTexts![2], forState: .Normal)
@@ -107,6 +102,9 @@ class ViewController: UIViewController {
             }
             destinationVC.numberSubmissions = self.numberSubmissions
             destinationVC.correct = self.correct
+            destinationVC.possibleAnswers = self.possibleAnswers
+            destinationVC.answers = self.answers
+            destinationVC.questions = self.questions
         } else if segue.identifier == "FinishedSegue" {
             let destinationVC = segue.destinationViewController as! FinishedViewController
             destinationVC.title = "YOU DID IT!"

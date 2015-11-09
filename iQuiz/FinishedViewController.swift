@@ -19,13 +19,13 @@ class FinishedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if correct <= 2 {
-            winningText.text = "NOOO.\nBelieve in yourself!"
+            winningText.text = "NOOO.Believe in yourself!"
         } else if correct == 3 {
-            winningText.text = "It's okay, \nyou can do better \nnext time"
+            winningText.text = "It's okay, you can do better next time"
         } else if correct == 4 {
             winningText.text = "So close!"
         } else {
-            winningText.text = "My bad, \nwe have a hot shot \nover here"
+            winningText.text = "My bad, we have a hot shot over here"
         }
         score.text = "\(correct) out of 5"
         self.navigationItem.setHidesBackButton(true, animated: false)

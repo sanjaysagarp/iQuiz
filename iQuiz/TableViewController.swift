@@ -122,7 +122,38 @@ class TableViewController: UITableViewController {
             let destinationVC = segue.destinationViewController as! ViewController
             let index = tableView.indexPathForSelectedRow!
             destinationVC.title = "1 of 5"
-            destinationVC.questionRowIndex = index.row // indicates which question set to display
+            if index.row == 0 { // math
+                destinationVC.questions = ["4 + 7 = ","3 * 3 = ", "3 * 4 = ", "3 * 5 = ", "3 * 6 = "]
+                destinationVC.possibleAnswers = [
+                    0 : ["2","3","11","9"],
+                    1 : ["9","0","5","2"],
+                    2 : ["12","0","5","2"],
+                    3 : ["2","5","12","15"],
+                    4 : ["9","18","5","15"]
+                ]
+                destinationVC.answers = ["11","9","12","15","18"]
+            } else if index.row == 1 { // Marvel Super Heroes
+                destinationVC.questions = ["Which of the following video games was created before the others?","Which of the following video games ", "3 * 4 = ", "3 * 5 = ", "3 * 6 = "]
+                destinationVC.possibleAnswers = [
+                    0 : ["Super Mario Bros.","Pong","Pacman","Duck Hunt"],
+                    1 : ["9","0","5","2"],
+                    2 : ["12","0","5","2"],
+                    3 : ["2","5","12","15"],
+                    4 : ["9","18","5","15"]
+                ]
+                destinationVC.answers = ["11","9","12","15","18"]
+            } else if index.row == 2 { //Science
+                destinationVC.questions = ["How big is the Earth?","Which of the following is NOT a planet?", "How many states of matter are there?", "What", "3 * 6 = "]
+                destinationVC.possibleAnswers = [
+                    0 : ["2","3","11","9"],
+                    1 : ["9","0","5","2"],
+                    2 : ["12","0","5","2"],
+                    3 : ["2","5","12","15"],
+                    4 : ["9","18","5","15"]
+                ]
+                destinationVC.answers = ["11","9","12","15","18"]
+                
+            }
             
         }
     }
