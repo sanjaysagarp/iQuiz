@@ -208,6 +208,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="QuestionView" id="dRw-Fp-t0b">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="2Xw-Lt-Eqf">
+                            <connections>
+                                <segue destination="dyg-KY-9Lj" kind="unwind" unwindAction="unwindToMainMenu:" id="JxK-1c-anp"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem enabled="NO" systemItem="done" id="8se-8L-FZT">
                                 <connections>
@@ -217,7 +222,7 @@
                             <barButtonItem title="Next" id="rG9-f1-3BJ">
                                 <connections>
                                     <action selector="segueFinish:" destination="D7V-4Q-PWI" id="pCd-JS-qEP"/>
-                                    <segue destination="D7V-4Q-PWI" kind="show" id="Y5g-fm-pPk"/>
+                                    <segue destination="D7V-4Q-PWI" kind="show" identifier="questionSegue" id="Y5g-fm-pPk"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -234,6 +239,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ODy-lH-pzV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="dyg-KY-9Lj" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="800" y="438"/>
         </scene>

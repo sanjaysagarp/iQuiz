@@ -20,7 +20,6 @@ class ViewController: UIViewController {
         4 : ["9","18","5","15"]
     ]
     var mathAnswers: [String] = ["11","9","12","15","18"]
-    //var question: String = ""
     var questionRowIndex: Int = 0 //From categories 0 = Math,  1 = Marvel, 2 = Science
     var questionIndex: Int = 0
     var correct: Int = 0
@@ -95,7 +94,7 @@ class ViewController: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        if segue.identifier != "FinishedSegue" {
+        if segue.identifier == "questionSegue" {
             let destinationVC = segue.destinationViewController as! ViewController
             destinationVC.questionIndex = self.questionIndex + 1
             if destinationVC.questionIndex < 5 {//Limits number of questions to 5
@@ -108,7 +107,7 @@ class ViewController: UIViewController {
             }
             destinationVC.numberSubmissions = self.numberSubmissions
             destinationVC.correct = self.correct
-        } else {
+        } else if segue.identifier == "FinishedSegue" {
             let destinationVC = segue.destinationViewController as! FinishedViewController
             destinationVC.title = "YOU DID IT!"
             destinationVC.correct = self.correct

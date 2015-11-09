@@ -28,7 +28,7 @@ class FinishedViewController: UIViewController {
             winningText.text = "My bad, \nwe have a hot shot \nover here"
         }
         score.text = "\(correct) out of 5"
-        // Do any additional setup after loading the view.
+        self.navigationItem.setHidesBackButton(true, animated: false)
     }
 
     override func didReceiveMemoryWarning() {
