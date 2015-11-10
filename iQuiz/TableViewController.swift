@@ -121,7 +121,7 @@ class TableViewController: UITableViewController {
         {
             let destinationVC = segue.destinationViewController as! ViewController
             let index = tableView.indexPathForSelectedRow!
-            destinationVC.title = "1 of 5"
+            
             if index.row == 0 { // math
                 destinationVC.questions = ["4 + 7 = ","3 * 3 = ", "3 * 4 = ", "3 * 5 = ", "3 * 6 = "]
                 destinationVC.possibleAnswers = [
@@ -132,28 +132,32 @@ class TableViewController: UITableViewController {
                     4 : ["9","18","5","15"]
                 ]
                 destinationVC.answers = ["11","9","12","15","18"]
+                
             } else if index.row == 1 { // Marvel Super Heroes
-                destinationVC.questions = ["Which of the following video games was created before the others?","Which of the following video games ", "3 * 4 = ", "3 * 5 = ", "3 * 6 = "]
+                destinationVC.questions = ["Question","Question","Question","Question","Question","Question","Question"]
                 destinationVC.possibleAnswers = [
-                    0 : ["Super Mario Bros.","Pong","Pacman","Duck Hunt"],
-                    1 : ["9","0","5","2"],
-                    2 : ["12","0","5","2"],
-                    3 : ["2","5","12","15"],
-                    4 : ["9","18","5","15"]
+                    0 : ["Answer1","Answer2","Answer3","Answer4"],
+                    1 : ["Answer1","Answer2","Answer3","Answer4"],
+                    2 : ["Answer1","Answer2","Answer3","Answer4"],
+                    3 : ["Answer1","Answer2","Answer3","Answer4"],
+                    4 : ["Answer1","Answer2","Answer3","Answer4"],
+                    5 : ["Answer1","Answer2","Answer3","Answer4"],
+                    6 : ["Answer1","Answer2","Answer3","Answer4"]
                 ]
-                destinationVC.answers = ["11","9","12","15","18"]
+                destinationVC.answers = ["Answer1","Answer1","Answer1","Answer1","Answer1","Answer1","Answer1"]
             } else if index.row == 2 { //Science
-                destinationVC.questions = ["How big is the Earth?","Which of the following is NOT a planet?", "How many states of matter are there?", "What", "3 * 6 = "]
+                destinationVC.questions = ["Question","Question","Question","Question"]
+                // capacity of questions == number of keys in possible Answers == answer capacity
                 destinationVC.possibleAnswers = [
-                    0 : ["2","3","11","9"],
-                    1 : ["9","0","5","2"],
-                    2 : ["12","0","5","2"],
-                    3 : ["2","5","12","15"],
-                    4 : ["9","18","5","15"]
+                    0 : ["Answer1","Answer2","Answer3","Answer4"],
+                    1 : ["Answer1","Answer2","Answer3","Answer4"],
+                    2 : ["Answer1","Answer2","Answer3","Answer4"],
+                    3 : ["Answer1","Answer2","Answer3","Answer4"],
                 ]
-                destinationVC.answers = ["11","9","12","15","18"]
+                destinationVC.answers = ["Answer1","Answer1","Answer1","Answer1"]
                 
             }
+            destinationVC.title = "1 of \(destinationVC.questions.capacity)"
             
         }
     }

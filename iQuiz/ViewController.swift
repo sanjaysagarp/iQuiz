@@ -109,6 +109,7 @@ class ViewController: UIViewController {
             let destinationVC = segue.destinationViewController as! FinishedViewController
             destinationVC.title = "YOU DID IT!"
             destinationVC.correct = self.correct
+            destinationVC.numberOfQuestions = self.questions.capacity
         }
         
         

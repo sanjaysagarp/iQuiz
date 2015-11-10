@@ -10,6 +10,7 @@ import UIKit
 
 class FinishedViewController: UIViewController {
     var correct: Int = 0
+    var numberOfQuestions: Int = 0
     @IBOutlet weak var winningText: UILabel!
     @IBOutlet weak var score: UILabel!
     @IBAction func backToMenu(sender: UIBarButtonItem) {
@@ -19,15 +20,15 @@ class FinishedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if correct <= 2 {
-            winningText.text = "NOOO.Believe in yourself!"
+            winningText.text = "NOT GOOD ENOUGH!"
         } else if correct == 3 {
             winningText.text = "It's okay, you can do better next time"
         } else if correct == 4 {
             winningText.text = "So close!"
         } else {
-            winningText.text = "My bad, we have a hot shot over here"
+            winningText.text = "Superb!"
         }
-        score.text = "\(correct) out of 5"
+        score.text = "\(correct) out of \(numberOfQuestions)"
         self.navigationItem.setHidesBackButton(true, animated: false)
     }
 
