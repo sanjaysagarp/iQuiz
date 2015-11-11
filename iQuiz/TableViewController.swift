@@ -8,15 +8,23 @@
 
 import UIKit
 
+struct Question {
+    var question : String
+    var answers : [String]
+    var correctAnswer : String
+}
+
 class TableViewController: UITableViewController {
     
     let subjects = ["Mathematics", "Marvel Super Heroes", "Science"]
     
+    let MathQuiz = [Question(question: "4 + 7 =", answers: ["1","2","11","8"], correctAnswer: "11"), Question(question: "1 + 2 =", answers: ["1","2","3","4"], correctAnswer: "3"), Question(question: "2 - 1", answers: ["1","2","3","4"], correctAnswer: "1"), Question(question: "1 * 2", answers: ["1","2","3","4"], correctAnswer: "2")]
+    
+    let DefaultQuiz = [Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"),]
+    
     @IBAction func displaySettings(sender: AnyObject) {
         //Create the AlertController
         let actionSheetController: UIAlertController = UIAlertController(title: "Settings go here!", message: nil, preferredStyle: .Alert)
-        
-        //Create and add the Cancel action
         let cancelAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
         }
         actionSheetController.addAction(cancelAction)
@@ -62,9 +70,9 @@ class TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SubjectCell", forIndexPath: indexPath)
         let image : UIImage = UIImage(named: "Question_Flat.png")!
-        cell.imageView!.image = image
+        cell.imageView!.image = image // need image for each quiz
         cell.textLabel?.text = subjects[indexPath.row]
-        cell.detailTextLabel!.text = "A sentence goes here"
+        cell.detailTextLabel!.text = "A sentence goes here" // description goes here
         
         return cell
     }
@@ -123,41 +131,13 @@ class TableViewController: UITableViewController {
             let index = tableView.indexPathForSelectedRow!
             
             if index.row == 0 { // math
-                destinationVC.questions = ["4 + 7 = ","3 * 3 = ", "3 * 4 = ", "3 * 5 = ", "3 * 6 = "]
-                destinationVC.possibleAnswers = [
-                    0 : ["2","3","11","9"],
-                    1 : ["9","0","5","2"],
-                    2 : ["12","0","5","2"],
-                    3 : ["2","5","12","15"],
-                    4 : ["9","18","5","15"]
-                ]
-                destinationVC.answers = ["11","9","12","15","18"]
+                destinationVC.quiz = self.DefaultQuiz
                 
             } else if index.row == 1 { // Marvel Super Heroes
-                destinationVC.questions = ["Question","Question","Question","Question","Question","Question","Question"]
-                destinationVC.possibleAnswers = [
-                    0 : ["Answer1","Answer2","Answer3","Answer4"],
-                    1 : ["Answer1","Answer2","Answer3","Answer4"],
-                    2 : ["Answer1","Answer2","Answer3","Answer4"],
-                    3 : ["Answer1","Answer2","Answer3","Answer4"],
-                    4 : ["Answer1","Answer2","Answer3","Answer4"],
-                    5 : ["Answer1","Answer2","Answer3","Answer4"],
-                    6 : ["Answer1","Answer2","Answer3","Answer4"]
-                ]
-                destinationVC.answers = ["Answer1","Answer1","Answer1","Answer1","Answer1","Answer1","Answer1"]
-            } else if index.row == 2 { //Science
-                destinationVC.questions = ["Question","Question","Question","Question"]
-                // capacity of questions == number of keys in possible Answers == answer capacity
-                destinationVC.possibleAnswers = [
-                    0 : ["Answer1","Answer2","Answer3","Answer4"],
-                    1 : ["Answer1","Answer2","Answer3","Answer4"],
-                    2 : ["Answer1","Answer2","Answer3","Answer4"],
-                    3 : ["Answer1","Answer2","Answer3","Answer4"],
-                ]
-                destinationVC.answers = ["Answer1","Answer1","Answer1","Answer1"]
-                
+                destinationVC.quiz = self.DefaultQuiz
+           
             }
-            destinationVC.title = "1 of \(destinationVC.questions.capacity)"
+            destinationVC.title = "1 of \(destinationVC.quiz.count)"
             
         }
     }

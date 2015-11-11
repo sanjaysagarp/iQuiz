@@ -7,15 +7,9 @@
 //
 
 import UIKit
-struct question {
-    //Each question has a questionText, possibleAnswers, answer
-}
+
 class ViewController: UIViewController {
-    var questions: [String] = []
-    var possibleAnswers: [Int:[String]] = [0:[]]
-    var answers: [String] = []
     
-    //var questionRowIndex: Int = 0 //From categories 0 = Math,  1 = Marvel, 2 = Science
     var questionIndex: Int = 0
     var correct: Int = 0
     var numberSubmissions: Int = 0
@@ -30,6 +24,7 @@ class ViewController: UIViewController {
     
     lazy var buttons: [UIButton] = [self.answer1, self.answer2, self.answer3, self.answer4]
     var userAnswer = ""
+    var quiz: [Question] = [Question(question: "", answers: [], correctAnswer: "")]
     
     @IBAction func answerButton(sender: UIButton) {
             for button in self.buttons {
@@ -46,7 +41,7 @@ class ViewController: UIViewController {
     @IBAction func submitButton(sender: UIButton) {
         numberSubmissions++
         for button in self.buttons {
-            if button.currentTitle == answers[questionIndex] { //answer check
+            if button.currentTitle == quiz[questionIndex].correctAnswer { //answer check
                 if button.selected {
                     button.layer.backgroundColor = UIColor.greenColor().CGColor
                     self.correct = self.correct + 1
@@ -58,17 +53,17 @@ class ViewController: UIViewController {
             button.enabled = false
         }
         sender.enabled = false
-        if numberSubmissions < questions.capacity {
+        if numberSubmissions < quiz.count {
             nextButton.enabled = true
         }
-        if numberSubmissions >= questions.capacity {
+        if numberSubmissions >= quiz.count {
             doneButton.enabled = true
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
         let swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(swipeRight)
@@ -79,13 +74,12 @@ class ViewController: UIViewController {
         submit.enabled = false
         nextButton.enabled = false
         self.navigationItem.setHidesBackButton(true, animated: false)
-        if self.questionIndex < questions.capacity {
-            var answerTexts = possibleAnswers[questionIndex]
-            questionText.text! = questions[questionIndex]
-            answer1.setTitle(answerTexts![0], forState: .Normal)
-            answer2.setTitle(answerTexts![1], forState: .Normal)
-            answer3.setTitle(answerTexts![2], forState: .Normal)
-            answer4.setTitle(answerTexts![3], forState: .Normal)
+        if self.questionIndex < quiz.count {
+            questionText.text! = quiz[questionIndex].question
+            answer1.setTitle(quiz[questionIndex].answers[0], forState: .Normal)
+            answer2.setTitle(quiz[questionIndex].answers[1], forState: .Normal)
+            answer3.setTitle(quiz[questionIndex].answers[2], forState: .Normal)
+            answer4.setTitle(quiz[questionIndex].answers[3], forState: .Normal)
         }
         
     }
@@ -99,17 +93,15 @@ class ViewController: UIViewController {
         if segue.identifier == "questionSegue" {
             let destinationVC = segue.destinationViewController as! ViewController
             destinationVC.questionIndex = self.questionIndex + 1
-            destinationVC.title = "\(destinationVC.questionIndex + 1) of \(questions.capacity)"
+            destinationVC.title = "\(destinationVC.questionIndex + 1) of \(quiz.count)"
             destinationVC.numberSubmissions = self.numberSubmissions
             destinationVC.correct = self.correct
-            destinationVC.possibleAnswers = self.possibleAnswers
-            destinationVC.answers = self.answers
-            destinationVC.questions = self.questions
+            destinationVC.quiz = self.quiz
         } else if segue.identifier == "FinishedSegue" {
             let destinationVC = segue.destinationViewController as! FinishedViewController
             destinationVC.title = "YOU DID IT!"
             destinationVC.correct = self.correct
-            destinationVC.numberOfQuestions = self.questions.capacity
+            destinationVC.numberOfQuestions = self.quiz.count
         }
         
         
@@ -120,7 +112,7 @@ class ViewController: UIViewController {
             case UISwipeGestureRecognizerDirection.Right:
                 self.performSegueWithIdentifier("unwindToMainMenu", sender: self)
             case UISwipeGestureRecognizerDirection.Left:
-                if numberSubmissions == questions.capacity {
+                if numberSubmissions == quiz.count {
                     self.performSegueWithIdentifier("FinishedSegue", sender: self)
                 } else if numberSubmissions == questionIndex + 1 {
                     self.performSegueWithIdentifier("questionSegue", sender: self)
