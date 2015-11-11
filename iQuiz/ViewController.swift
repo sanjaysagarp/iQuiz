@@ -58,10 +58,10 @@ class ViewController: UIViewController {
             button.enabled = false
         }
         sender.enabled = false
-        if numberSubmissions < 5 {
+        if numberSubmissions < questions.capacity {
             nextButton.enabled = true
         }
-        if numberSubmissions >= 5 {
+        if numberSubmissions >= questions.capacity {
             doneButton.enabled = true
         }
     }
@@ -72,7 +72,7 @@ class ViewController: UIViewController {
         submit.enabled = false
         nextButton.enabled = false
         self.navigationItem.setHidesBackButton(true, animated: false)
-        if self.questionIndex < 5 {
+        if self.questionIndex < questions.capacity {
             var answerTexts = possibleAnswers[questionIndex]
             questionText.text! = questions[questionIndex]
             answer1.setTitle(answerTexts![0], forState: .Normal)
@@ -92,14 +92,7 @@ class ViewController: UIViewController {
         if segue.identifier == "questionSegue" {
             let destinationVC = segue.destinationViewController as! ViewController
             destinationVC.questionIndex = self.questionIndex + 1
-            if destinationVC.questionIndex < 5 {//Limits number of questions to 5
-                destinationVC.title = "\(destinationVC.questionIndex + 1) of 5"
-
-            }
-            
-            if questionIndex >= 3 {
-                destinationVC.nextButton.enabled = false;
-            }
+            destinationVC.title = "\(destinationVC.questionIndex + 1) of \(questions.capacity)"
             destinationVC.numberSubmissions = self.numberSubmissions
             destinationVC.correct = self.correct
             destinationVC.possibleAnswers = self.possibleAnswers

@@ -15,15 +15,15 @@ class FinishedViewController: UIViewController {
     @IBOutlet weak var score: UILabel!
     @IBAction func backToMenu(sender: UIBarButtonItem) {
         let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 7], animated: true)
+        self.navigationController!.popToViewController(viewControllers[viewControllers.count - (numberOfQuestions + 2)], animated: true)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        if correct <= 2 {
+        if correct <= numberOfQuestions / 4 {
             winningText.text = "NOT GOOD ENOUGH!"
-        } else if correct == 3 {
+        } else if correct <= numberOfQuestions / 2 {
             winningText.text = "It's okay, you can do better next time"
-        } else if correct == 4 {
+        } else if correct <= numberOfQuestions - (numberOfQuestions / 10) {
             winningText.text = "So close!"
         } else {
             winningText.text = "Superb!"
