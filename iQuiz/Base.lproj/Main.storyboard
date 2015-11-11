@@ -16,6 +16,11 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="KVr-aQ-gu1">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </toolbar>
                     <connections>
                         <segue destination="7Jq-BO-tEQ" kind="relationship" relationship="rootViewController" id="IjQ-sX-l6o"/>
                     </connections>
@@ -213,7 +218,7 @@
                     <navigationItem key="navigationItem" title="QuestionView" id="dRw-Fp-t0b">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="2Xw-Lt-Eqf">
                             <connections>
-                                <segue destination="dyg-KY-9Lj" kind="unwind" unwindAction="unwindToMainMenu:" id="JxK-1c-anp"/>
+                                <segue destination="dyg-KY-9Lj" kind="unwind" identifier="unwindToMainMenu" unwindAction="unwindToMainMenu:" id="JxK-1c-anp"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>

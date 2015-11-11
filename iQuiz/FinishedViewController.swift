@@ -19,17 +19,21 @@ class FinishedViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        if correct <= numberOfQuestions / 4 {
-            winningText.text = "NOT GOOD ENOUGH!"
-        } else if correct <= numberOfQuestions / 2 {
-            winningText.text = "It's okay, you can do better next time"
-        } else if correct <= numberOfQuestions - (numberOfQuestions / 10) {
-            winningText.text = "So close!"
-        } else {
+        if correct == numberOfQuestions {
             winningText.text = "Superb!"
+        } else if correct <= numberOfQuestions / 4 {
+            winningText.text = "NOT GOOD ENOUGH!"
+        } else if correct <= (3 * numberOfQuestions) / 4 {
+            winningText.text = "It's okay, you can do better next time"
+        } else {
+            winningText.text = "So close!"
         }
         score.text = "\(correct) out of \(numberOfQuestions)"
         self.navigationItem.setHidesBackButton(true, animated: false)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
+        swipeRight.direction = UISwipeGestureRecognizerDirection.Right
+        self.view.addGestureRecognizer(swipeRight)
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,5 +51,16 @@ class FinishedViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.Right:
+                let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+                self.navigationController!.popToViewController(viewControllers[viewControllers.count - (numberOfQuestions + 2)], animated: true)
+            default:
+                break
+            }
+        }
+    }
 }

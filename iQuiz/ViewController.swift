@@ -69,6 +69,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
+        swipeRight.direction = UISwipeGestureRecognizerDirection.Right
+        self.view.addGestureRecognizer(swipeRight)
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
+        self.view.addGestureRecognizer(swipeLeft)
+        
         submit.enabled = false
         nextButton.enabled = false
         self.navigationItem.setHidesBackButton(true, animated: false)
@@ -107,6 +114,21 @@ class ViewController: UIViewController {
         
         
     }
-
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.Right:
+                self.performSegueWithIdentifier("unwindToMainMenu", sender: self)
+            case UISwipeGestureRecognizerDirection.Left:
+                if numberSubmissions == questions.capacity {
+                    self.performSegueWithIdentifier("FinishedSegue", sender: self)
+                } else if numberSubmissions == questionIndex + 1 {
+                    self.performSegueWithIdentifier("questionSegue", sender: self)
+                }
+            default:
+                break
+            }
+        }
+    }
 }
 
