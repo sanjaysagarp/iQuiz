@@ -131,11 +131,13 @@ class TableViewController: UITableViewController {
             let index = tableView.indexPathForSelectedRow!
             
             if index.row == 0 { // math
-                destinationVC.quiz = self.DefaultQuiz
+                destinationVC.quiz = self.MathQuiz
                 
             } else if index.row == 1 { // Marvel Super Heroes
                 destinationVC.quiz = self.DefaultQuiz
            
+            } else if index.row == 2 { // Science
+                destinationVC.quiz = self.DefaultQuiz
             }
             destinationVC.title = "1 of \(destinationVC.quiz.count)"
             
