@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 struct Question {
     var question : String
     var answers : [String]
@@ -16,12 +15,17 @@ struct Question {
 
 class TableViewController: UITableViewController {
     
-    let subjects = ["Mathematics", "Marvel Super Heroes", "Science"]
+    var subjects = ["Mathematics", "Marvel Super Heroes", "Science"]
+    var descriptions = ["x + y = z","HULK SMASH","Science is best bro"]
     
-    let MathQuiz = [Question(question: "4 + 7 =", answers: ["1","2","11","8"], correctAnswer: "11"), Question(question: "1 + 2 =", answers: ["1","2","3","4"], correctAnswer: "3"), Question(question: "2 - 1", answers: ["1","2","3","4"], correctAnswer: "1"), Question(question: "1 * 2", answers: ["1","2","3","4"], correctAnswer: "2")]
-    
+    /*let MathQuiz = [Question(question: "4 + 7 =", answers: ["1","2","11","8"], correctAnswer: "11"), Question(question: "1 + 2 =", answers: ["1","2","3","4"], correctAnswer: "3"), Question(question: "2 - 1", answers: ["1","2","3","4"], correctAnswer: "1"), Question(question: "1 * 2", answers: ["1","2","3","4"], correctAnswer: "2")]
+
     let DefaultQuiz = [Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"),]
+    */
     
+    
+    var questions = [Question]()
+    var Quizes = [[Question]]()
     @IBAction func displaySettings(sender: AnyObject) {
         //Create the AlertController
         let actionSheetController: UIAlertController = UIAlertController(title: "Settings go here!", message: nil, preferredStyle: .Alert)
@@ -31,12 +35,55 @@ class TableViewController: UITableViewController {
         
         self.presentViewController(actionSheetController, animated: true, completion: nil)
     }
+    
     @IBAction func unwindToMainMenu(segue: UIStoryboardSegue) {
         
     }
+    
+    func httpGet(request: NSURLRequest!, callback: (String, String?) -> Void) {
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) {
+            (data, response, error) -> Void in
+            if error != nil {
+                callback("", error!.localizedDescription)
+            } else {
+                let result = NSString(data: data!, encoding:NSASCIIStringEncoding)!
+                callback(result as String, nil)
+            }
+        }
+        task.resume()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+      
+        //Retrieval Request for json
+        let urlString = "http://tednewardsandbox.site44.com/questions.json"
+        if let url = NSURL(string: urlString) {
+            if let data = try? NSData(contentsOfURL: url, options: []) {
+                let json = JSON(data: data)
+                subjects = [String]()
+                descriptions = [String]()
+                let subjectArray = json.array
+                //print(json[0]["title"]) // This prints "Science!"
+                
+                for index in 0...(subjectArray!.count - 1) {
+                    //parses through the 3 'bulks'
+                    questions = [Question]()
+                    subjects += [json[index]["title"].stringValue]
+                    descriptions += [json[index]["desc"].stringValue]
+                    let questionsJSON = json[index]["questions"].array
+                    for q in questionsJSON! {
+                        questions += [Question(question: q["text"].stringValue, answers: [q["answers"][0].stringValue, q["answers"][1].stringValue, q["answers"][2].stringValue, q["answers"][3].stringValue, ], correctAnswer: q["answers"][q["answer"].intValue - 1].stringValue)]
+                    }
+                    Quizes += [questions]
+                }
+                    
+                
+            }
+        }
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -72,7 +119,7 @@ class TableViewController: UITableViewController {
         let image : UIImage = UIImage(named: "Question_Flat.png")!
         cell.imageView!.image = image // need image for each quiz
         cell.textLabel?.text = subjects[indexPath.row]
-        cell.detailTextLabel!.text = "A sentence goes here" // description goes here
+        cell.detailTextLabel!.text = descriptions[indexPath.row] // description goes here
         
         return cell
     }
@@ -130,7 +177,7 @@ class TableViewController: UITableViewController {
             let destinationVC = segue.destinationViewController as! ViewController
             let index = tableView.indexPathForSelectedRow!
             
-            if index.row == 0 { // math
+            /*if index.row == 0 { // math
                 destinationVC.quiz = self.MathQuiz
                 
             } else if index.row == 1 { // Marvel Super Heroes
@@ -138,7 +185,8 @@ class TableViewController: UITableViewController {
            
             } else if index.row == 2 { // Science
                 destinationVC.quiz = self.DefaultQuiz
-            }
+            }*/
+            destinationVC.quiz = Quizes[index.row]
             destinationVC.title = "1 of \(destinationVC.quiz.count)"
             
         }
