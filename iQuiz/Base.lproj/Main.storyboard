@@ -29,6 +29,83 @@
             </objects>
             <point key="canvasLocation" x="-671" y="438"/>
         </scene>
+        <!--Title-->
+        <scene sceneID="akp-1r-mdg">
+            <objects>
+                <viewController id="ibt-Ul-xmB" customClass="SettingsViewController" customModule="iQuiz" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pkL-n0-Kkf"/>
+                        <viewControllerLayoutGuide type="bottom" id="MHw-qd-M3X"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="APV-pc-aIG">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqd-rk-Sf1">
+                                <rect key="frame" x="204" y="338" width="193" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="193" id="hVs-AI-IjM"/>
+                                </constraints>
+                                <state key="normal" title="Check for Update"/>
+                                <connections>
+                                    <action selector="UpdateQuiz:" destination="ibt-Ul-xmB" eventType="touchUpInside" id="z1T-N8-D73"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Source URL" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjV-RW-toj">
+                                <rect key="frame" x="108" y="258" width="384" height="21"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="BGb-Vj-VNU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://tednewardsandbox.site44.com/questions.json" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p6f-Ap-Bza">
+                                <rect key="frame" x="20" y="300" width="560" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wda-V6-rDK">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <animations/>
+                                <items>
+                                    <barButtonItem title="Done" id="WPF-RN-lhL">
+                                        <connections>
+                                            <segue destination="YPY-iW-ffX" kind="unwind" unwindAction="unwindToMainMenu:" id="uNp-PQ-kiY"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xqd-rk-Sf1" firstAttribute="top" secondItem="p6f-Ap-Bza" secondAttribute="bottom" constant="8" symbolic="YES" id="1Hk-kN-ulE"/>
+                            <constraint firstItem="wjV-RW-toj" firstAttribute="leading" secondItem="APV-pc-aIG" secondAttribute="leadingMargin" constant="88" id="7j4-db-B98"/>
+                            <constraint firstItem="xqd-rk-Sf1" firstAttribute="centerX" secondItem="APV-pc-aIG" secondAttribute="centerX" id="EFP-KP-pRd"/>
+                            <constraint firstItem="xqd-rk-Sf1" firstAttribute="centerY" secondItem="APV-pc-aIG" secondAttribute="centerY" constant="53" id="Nx3-7N-rq3"/>
+                            <constraint firstItem="xqd-rk-Sf1" firstAttribute="top" secondItem="wjV-RW-toj" secondAttribute="bottom" constant="59" id="Pl2-tF-2zq"/>
+                            <constraint firstItem="wjV-RW-toj" firstAttribute="centerX" secondItem="xqd-rk-Sf1" secondAttribute="centerX" id="Rwr-Wz-N9D"/>
+                            <constraint firstItem="wda-V6-rDK" firstAttribute="bottom" secondItem="MHw-qd-M3X" secondAttribute="top" id="SAf-PT-3sm"/>
+                            <constraint firstItem="p6f-Ap-Bza" firstAttribute="centerX" secondItem="xqd-rk-Sf1" secondAttribute="centerX" id="SBx-Lh-mmP"/>
+                            <constraint firstItem="wda-V6-rDK" firstAttribute="centerX" secondItem="xqd-rk-Sf1" secondAttribute="centerX" id="iWA-df-zFp"/>
+                            <constraint firstItem="wda-V6-rDK" firstAttribute="leading" secondItem="APV-pc-aIG" secondAttribute="leading" id="oEd-h3-Qae"/>
+                            <constraint firstItem="p6f-Ap-Bza" firstAttribute="leading" secondItem="APV-pc-aIG" secondAttribute="leadingMargin" id="qaS-jE-zgj"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="Qfo-ky-8PU"/>
+                    <connections>
+                        <outlet property="QuizURL" destination="p6f-Ap-Bza" id="GSj-QM-WRk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="THY-wk-NfR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="YPY-iW-ffX" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="105" y="-297"/>
+        </scene>
         <!--Table View Controller-->
         <scene sceneID="kNE-Le-xYq">
             <objects>
@@ -82,7 +159,9 @@
                     <navigationItem key="navigationItem" id="lDx-rx-WT8">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="nE1-n8-JKY">
                             <connections>
-                                <action selector="displaySettings:" destination="7Jq-BO-tEQ" id="Zmj-9V-meP"/>
+                                <segue destination="ibt-Ul-xmB" kind="popoverPresentation" popoverAnchorBarButtonItem="nE1-n8-JKY" id="1uS-vX-sVb">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

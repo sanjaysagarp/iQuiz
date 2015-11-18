@@ -17,7 +17,6 @@ class TableViewController: UITableViewController {
     
     var subjects = ["Mathematics", "Marvel Super Heroes", "Science"]
     var descriptions = ["x + y = z","HULK SMASH","Science is best bro"]
-    
     /*let MathQuiz = [Question(question: "4 + 7 =", answers: ["1","2","11","8"], correctAnswer: "11"), Question(question: "1 + 2 =", answers: ["1","2","3","4"], correctAnswer: "3"), Question(question: "2 - 1", answers: ["1","2","3","4"], correctAnswer: "1"), Question(question: "1 * 2", answers: ["1","2","3","4"], correctAnswer: "2")]
 
     let DefaultQuiz = [Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"),]
@@ -26,7 +25,7 @@ class TableViewController: UITableViewController {
     
     var questions = [Question]()
     var Quizes = [[Question]]()
-    @IBAction func displaySettings(sender: AnyObject) {
+    /*@IBAction func displaySettings(sender: AnyObject) {
         //Create the AlertController
         let actionSheetController: UIAlertController = UIAlertController(title: "Settings go here!", message: nil, preferredStyle: .Alert)
         let cancelAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
@@ -34,7 +33,7 @@ class TableViewController: UITableViewController {
         actionSheetController.addAction(cancelAction)
         
         self.presentViewController(actionSheetController, animated: true, completion: nil)
-    }
+    }*/
     
     @IBAction func unwindToMainMenu(segue: UIStoryboardSegue) {
         
@@ -56,12 +55,86 @@ class TableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
+        //Download file (session request)
+        /*
+        //let didFinishExpectation = expectationWithDescription("Download finished")
+        let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session = NSURLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
+        let URL = NSURL(string: "http://tednewardsandbox.site44.com/questions.json")
+        let request = NSMutableURLRequest(URL: URL!)
+        
+        request.HTTPMethod = "GET"
+        
+        
+        
+        let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+            var quizzes : [AnyObject]
+            //XCTAssertNotNil(data, "Data should not be nil")
+            //XCTAssertNil(error, "error should be nil")
+            
+            let statusCode = (response as! NSHTTPURLResponse).statusCode
+            
+            print("URL Task Worked: \(statusCode)")
+            
+            do {
+                quizzes = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as! [AnyObject]
+                
+                //didFinishExpectation.fulfill()
+            } catch {
+                //report an error
+            }
+            
+        }
+        
+        task.resume()*/
+        
+        
+        let cache = NSCache()
+        var json: JSON = ""
+        
+        if let cachedVersion = cache.objectForKey("CachedQuizes") {
+            // use the cached version
+            print("YES")
+            json = cachedVersion as! JSON
+        } else {
+            // create it from scratch then store in the cache
+            let urlString = "http://tednewardsandbox.site44.com/questions.json"
+            if let url = NSURL(string: urlString) {
+                if let data = try? NSData(contentsOfURL: url, options: []) {
+                    json = JSON(data:data)
+                    cache.setObject(json.arrayObject!, forKey: "CachedQuizes")
+                }
+            }
+        }
+        if json != "" {
+            subjects = [String]()
+            descriptions = [String]()
+            let subjectArray = json.array
+            //print(json[0]["title"]) // This prints "Science!"
+            
+            for index in 0...(subjectArray!.count - 1) {
+                //parses through the 3 'bulks'
+                questions = [Question]()
+                subjects += [json[index]["title"].stringValue]
+                descriptions += [json[index]["desc"].stringValue]
+                let questionsJSON = json[index]["questions"].array
+                for q in questionsJSON! {
+                    questions += [Question(question: q["text"].stringValue, answers: [q["answers"][0].stringValue, q["answers"][1].stringValue, q["answers"][2].stringValue, q["answers"][3].stringValue, ], correctAnswer: q["answers"][q["answer"].intValue - 1].stringValue)]
+                }
+                Quizes += [questions]
+            }
+        } else {
+            print("Error. Quizes cannot be fetched")
+        }
+
+        
         //Retrieval Request for json
-        let urlString = "http://tednewardsandbox.site44.com/questions.json"
+        /*let urlString = "http://tednewardsandbox.site44.com/questions.json"
         if let url = NSURL(string: urlString) {
             if let data = try? NSData(contentsOfURL: url, options: []) {
                 let json = JSON(data: data)
+                //print(json.array)
                 subjects = [String]()
                 descriptions = [String]()
                 let subjectArray = json.array
@@ -81,7 +154,7 @@ class TableViewController: UITableViewController {
                     
                 
             }
-        }
+        }*/
         
         
         // Uncomment the following line to preserve selection between presentations
