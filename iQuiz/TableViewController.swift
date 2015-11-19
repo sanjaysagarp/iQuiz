@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+
 struct Question {
     var question : String
     var answers : [String]
@@ -15,8 +18,8 @@ struct Question {
 
 class TableViewController: UITableViewController {
     
-    var subjects = ["Mathematics", "Marvel Super Heroes", "Science"]
-    var descriptions = ["x + y = z","HULK SMASH","Science is best bro"]
+    var subjects = ["Science", "Marvel Super Heroes", "Mathematics"]
+    var descriptions = ["Science is best bro","HULK SMASH","x + y = z"]
     /*let MathQuiz = [Question(question: "4 + 7 =", answers: ["1","2","11","8"], correctAnswer: "11"), Question(question: "1 + 2 =", answers: ["1","2","3","4"], correctAnswer: "3"), Question(question: "2 - 1", answers: ["1","2","3","4"], correctAnswer: "1"), Question(question: "1 * 2", answers: ["1","2","3","4"], correctAnswer: "2")]
 
     let DefaultQuiz = [Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"),]
@@ -56,105 +59,24 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Download file (session request)
-        /*
-        //let didFinishExpectation = expectationWithDescription("Download finished")
-        let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let session = NSURLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
-        let URL = NSURL(string: "http://tednewardsandbox.site44.com/questions.json")
-        let request = NSMutableURLRequest(URL: URL!)
-        
-        request.HTTPMethod = "GET"
-        
-        
-        
-        let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
-            var quizzes : [AnyObject]
-            //XCTAssertNotNil(data, "Data should not be nil")
-            //XCTAssertNil(error, "error should be nil")
+        Alamofire.request(.GET, "http://tednewardsandbox.site44.com/questions.json").validate().responseJSON { response in
             
-            let statusCode = (response as! NSHTTPURLResponse).statusCode
-            
-            print("URL Task Worked: \(statusCode)")
-            
-            do {
-                quizzes = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as! [AnyObject]
-                
-                //didFinishExpectation.fulfill()
-            } catch {
-                //report an error
+            if let value = response.result.value {
+                let json = JSON(value)
+                self.setQuizQuestions(json)
+            } else {
+                print("Cannot fetch data, using local")
+                self.getQuizzesFromFileWithSuccess { (data) -> Void in
+                    let json = JSON(data: data)
+                    self.setQuizQuestions(json)
+                }
             }
             
         }
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.tableView.reloadData()
+        })
         
-        task.resume()*/
-        
-        
-        let cache = NSCache()
-        var json: JSON = ""
-        
-        if let cachedVersion = cache.objectForKey("CachedQuizes") {
-            // use the cached version
-            print("YES")
-            json = cachedVersion as! JSON
-        } else {
-            // create it from scratch then store in the cache
-            let urlString = "http://tednewardsandbox.site44.com/questions.json"
-            if let url = NSURL(string: urlString) {
-                if let data = try? NSData(contentsOfURL: url, options: []) {
-                    json = JSON(data:data)
-                    cache.setObject(json.arrayObject!, forKey: "CachedQuizes")
-                }
-            }
-        }
-        if json != "" {
-            subjects = [String]()
-            descriptions = [String]()
-            let subjectArray = json.array
-            //print(json[0]["title"]) // This prints "Science!"
-            
-            for index in 0...(subjectArray!.count - 1) {
-                //parses through the 3 'bulks'
-                questions = [Question]()
-                subjects += [json[index]["title"].stringValue]
-                descriptions += [json[index]["desc"].stringValue]
-                let questionsJSON = json[index]["questions"].array
-                for q in questionsJSON! {
-                    questions += [Question(question: q["text"].stringValue, answers: [q["answers"][0].stringValue, q["answers"][1].stringValue, q["answers"][2].stringValue, q["answers"][3].stringValue, ], correctAnswer: q["answers"][q["answer"].intValue - 1].stringValue)]
-                }
-                Quizes += [questions]
-            }
-        } else {
-            print("Error. Quizes cannot be fetched")
-        }
-
-        
-        //Retrieval Request for json
-        /*let urlString = "http://tednewardsandbox.site44.com/questions.json"
-        if let url = NSURL(string: urlString) {
-            if let data = try? NSData(contentsOfURL: url, options: []) {
-                let json = JSON(data: data)
-                //print(json.array)
-                subjects = [String]()
-                descriptions = [String]()
-                let subjectArray = json.array
-                //print(json[0]["title"]) // This prints "Science!"
-                
-                for index in 0...(subjectArray!.count - 1) {
-                    //parses through the 3 'bulks'
-                    questions = [Question]()
-                    subjects += [json[index]["title"].stringValue]
-                    descriptions += [json[index]["desc"].stringValue]
-                    let questionsJSON = json[index]["questions"].array
-                    for q in questionsJSON! {
-                        questions += [Question(question: q["text"].stringValue, answers: [q["answers"][0].stringValue, q["answers"][1].stringValue, q["answers"][2].stringValue, q["answers"][3].stringValue, ], correctAnswer: q["answers"][q["answer"].intValue - 1].stringValue)]
-                    }
-                    Quizes += [questions]
-                }
-                    
-                
-            }
-        }*/
         
         
         // Uncomment the following line to preserve selection between presentations
@@ -188,6 +110,7 @@ class TableViewController: UITableViewController {
     }*/
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("SubjectCell", forIndexPath: indexPath)
         let image : UIImage = UIImage(named: "Question_Flat.png")!
         cell.imageView!.image = image // need image for each quiz
@@ -249,19 +172,47 @@ class TableViewController: UITableViewController {
         {
             let destinationVC = segue.destinationViewController as! ViewController
             let index = tableView.indexPathForSelectedRow!
-            
-            /*if index.row == 0 { // math
-                destinationVC.quiz = self.MathQuiz
-                
-            } else if index.row == 1 { // Marvel Super Heroes
-                destinationVC.quiz = self.DefaultQuiz
-           
-            } else if index.row == 2 { // Science
-                destinationVC.quiz = self.DefaultQuiz
-            }*/
+  
+
             destinationVC.quiz = Quizes[index.row]
             destinationVC.title = "1 of \(destinationVC.quiz.count)"
             
+        }
+    }
+    
+    func getQuizzesFromFileWithSuccess(success: ((data: NSData) -> Void)) {
+        //1
+        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            //2
+            let filePath = NSBundle.mainBundle().pathForResource("Quizzes",ofType:"json")
+            var readError:NSError?
+            do {
+                let data = try NSData(contentsOfFile:filePath!, options: NSDataReadingOptions.DataReadingUncached)
+                success(data: data)
+            } catch let error as NSError {
+                readError = error
+            } catch {
+                fatalError()
+            }
+        //})
+    }
+    
+    func setQuizQuestions(json: JSON) {
+        subjects = [String]()
+        descriptions = [String]()
+        let subjectArray = json.array
+        //print(json[0]["title"]) // This prints "Science!"
+        
+        for index in 0...(subjectArray!.count - 1) {
+            //parses through the 3 'bulks'
+            questions = [Question]()
+            subjects += [json[index]["title"].stringValue]
+            descriptions += [json[index]["desc"].stringValue]
+            let questionsJSON = json[index]["questions"].array
+            for q in questionsJSON! {
+                questions += [Question(question: q["text"].stringValue, answers: [q["answers"][0].stringValue, q["answers"][1].stringValue, q["answers"][2].stringValue, q["answers"][3].stringValue, ], correctAnswer: q["answers"][q["answer"].intValue - 1].stringValue)]
+            }
+            Quizes += [questions]
         }
     }
 
