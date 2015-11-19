@@ -9,11 +9,13 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
-
-    @IBOutlet weak var QuizURL: UITextField!
     
+
+    @IBOutlet weak var textInput: UITextField!
     @IBAction func UpdateQuiz(sender: AnyObject) {
+        newURL = textInput.text!
     }
+    var newURL: String = "http://tednewardsandbox.site44.com/questions.json"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,11 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
         
         
+    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let destinationVC = segue.destinationViewController as! TableViewController
+        destinationVC.URL = newURL
+        print(newURL)
     }
     
 

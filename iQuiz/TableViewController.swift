@@ -20,50 +20,21 @@ class TableViewController: UITableViewController {
     
     var subjects = ["Science", "Marvel Super Heroes", "Mathematics"]
     var descriptions = ["Science is best bro","HULK SMASH","x + y = z"]
-    /*let MathQuiz = [Question(question: "4 + 7 =", answers: ["1","2","11","8"], correctAnswer: "11"), Question(question: "1 + 2 =", answers: ["1","2","3","4"], correctAnswer: "3"), Question(question: "2 - 1", answers: ["1","2","3","4"], correctAnswer: "1"), Question(question: "1 * 2", answers: ["1","2","3","4"], correctAnswer: "2")]
-
-    let DefaultQuiz = [Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"), Question(question: "Insert Question Here", answers: ["Answer1","Answer2","Answer3","Answer4"], correctAnswer: "Answer1"),]
-    */
-    
-    
+    var URL = "http://tednewardsandbox.site44.com/questions.json"
     var questions = [Question]()
     var Quizes = [[Question]]()
-    /*@IBAction func displaySettings(sender: AnyObject) {
-        //Create the AlertController
-        let actionSheetController: UIAlertController = UIAlertController(title: "Settings go here!", message: nil, preferredStyle: .Alert)
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-        }
-        actionSheetController.addAction(cancelAction)
-        
-        self.presentViewController(actionSheetController, animated: true, completion: nil)
-    }*/
     
     @IBAction func unwindToMainMenu(segue: UIStoryboardSegue) {
         
     }
     
-    func httpGet(request: NSURLRequest!, callback: (String, String?) -> Void) {
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) {
-            (data, response, error) -> Void in
-            if error != nil {
-                callback("", error!.localizedDescription)
-            } else {
-                let result = NSString(data: data!, encoding:NSASCIIStringEncoding)!
-                callback(result as String, nil)
-            }
-        }
-        task.resume()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        Alamofire.request(.GET, "http://tednewardsandbox.site44.com/questions.json").validate().responseJSON { response in
-            
+        Alamofire.request(.GET, self.URL).validate().responseJSON { response in
             if let value = response.result.value {
                 let json = JSON(value)
                 self.setQuizQuestions(json)
+                
             } else {
                 print("Cannot fetch data, using local")
                 self.getQuizzesFromFileWithSuccess { (data) -> Void in
@@ -76,9 +47,7 @@ class TableViewController: UITableViewController {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.tableView.reloadData()
         })
-        
-        
-        
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -181,27 +150,21 @@ class TableViewController: UITableViewController {
     }
     
     func getQuizzesFromFileWithSuccess(success: ((data: NSData) -> Void)) {
-        //1
-        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            //2
-            let filePath = NSBundle.mainBundle().pathForResource("Quizzes",ofType:"json")
-            var readError:NSError?
-            do {
-                let data = try NSData(contentsOfFile:filePath!, options: NSDataReadingOptions.DataReadingUncached)
-                success(data: data)
-            } catch let error as NSError {
-                readError = error
-            } catch {
-                fatalError()
-            }
-        //})
+
+        let filePath = NSBundle.mainBundle().pathForResource("Quizzes",ofType:"json")
+
+        do {
+            let data = try NSData(contentsOfFile:filePath!, options: NSDataReadingOptions.DataReadingUncached)
+            success(data: data)
+        } catch {
+            print("Could not fetch from local")
+        }
     }
     
     func setQuizQuestions(json: JSON) {
         subjects = [String]()
         descriptions = [String]()
         let subjectArray = json.array
-        //print(json[0]["title"]) // This prints "Science!"
         
         for index in 0...(subjectArray!.count - 1) {
             //parses through the 3 'bulks'

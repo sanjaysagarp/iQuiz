@@ -62,9 +62,12 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://tednewardsandbox.site44.com/questions.json" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p6f-Ap-Bza">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://tednewardsandbox.site44.com/questions.json" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="p6f-Ap-Bza">
                                 <rect key="frame" x="20" y="300" width="560" height="30"/>
                                 <animations/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" keyboardKey="YES"/>
+                                </accessibility>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -74,6 +77,7 @@
                                 <items>
                                     <barButtonItem title="Done" id="WPF-RN-lhL">
                                         <connections>
+                                            <action selector="newVC:" destination="ibt-Ul-xmB" id="ehM-5C-Ev4"/>
                                             <segue destination="YPY-iW-ffX" kind="unwind" unwindAction="unwindToMainMenu:" id="uNp-PQ-kiY"/>
                                         </connections>
                                     </barButtonItem>
@@ -98,7 +102,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="Qfo-ky-8PU"/>
                     <connections>
-                        <outlet property="QuizURL" destination="p6f-Ap-Bza" id="GSj-QM-WRk"/>
+                        <outlet property="textInput" destination="p6f-Ap-Bza" id="OQo-Fd-85G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="THY-wk-NfR" userLabel="First Responder" sceneMemberID="firstResponder"/>
