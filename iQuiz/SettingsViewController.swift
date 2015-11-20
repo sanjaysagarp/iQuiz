@@ -32,7 +32,7 @@ class SettingsViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let destinationVC = segue.destinationViewController as! TableViewController
         destinationVC.URL = newURL
-        print(newURL)
+        destinationVC.viewDidLoad()
     }
     
 

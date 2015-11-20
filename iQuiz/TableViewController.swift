@@ -42,11 +42,8 @@ class TableViewController: UITableViewController {
                     self.setQuizQuestions(json)
                 }
             }
-            
-        }
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.tableView.reloadData()
-        })
+        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
